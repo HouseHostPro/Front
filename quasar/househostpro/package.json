@@ -1,0 +1,32 @@
+{
+  "name": "househostpro",
+  "version": "0.0.1",
+  "description": "proyecto HouseHostPro",
+  "productName": "HouseHostPro",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "quasar dev",
+    "build": "quasar build"
+  },
+  "dependencies": {
+    "axios": "^1.2.1",
+    "vue-i18n": "^9.0.0",
+    "@quasar/extras": "^1.16.4",
+    "quasar": "^2.8.0",
+    "vue": "^3.2.29",
+    "vue-router": "^4.0.12"
+  },
+  "devDependencies": {
+    "@intlify/vite-plugin-vue-i18n": "^3.3.1",
+    "@quasar/app-vite": "^1.4.3",
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.14"
+  },
+  "engines": {
+    "node": "^20 || ^18 || ^16",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}
