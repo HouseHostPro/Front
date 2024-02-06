@@ -11,11 +11,12 @@
     "build": "quasar build"
   },
   "dependencies": {
-    "axios": "^1.2.1",
-    "vue-i18n": "^9.0.0",
     "@quasar/extras": "^1.16.4",
+    "axios": "^1.2.1",
     "quasar": "^2.8.0",
     "vue": "^3.2.29",
+    "vue-axios": "^3.5.2",
+    "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
