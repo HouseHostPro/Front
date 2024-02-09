@@ -1,15 +1,16 @@
 <template>
-  <q-page class="bg-light-blue window-height window-width row justify-center items-center">
+  <q-page class="bg-light-blue row justify-center items-center">
     <div class="column">
       <div class="row">
         <h5 class="text-h5 text-white q-my-md">HouseHostPro</h5>
       </div>
       <div class="row">
-        <q-card square bordered class="q-pa-lg shadow-1">
+        <q-card square bordered class="q-pa-lg shadow-1 flex column justify-center">
           <q-card-section>
             <q-form class="q-gutter-md">
+              <h4 class="text-h4 text-black q-my-md">Iniciar Sesion</h4>
               <q-input square filled clearable v-model="user.email" type="email" label="email" />
-              <q-input square filled clearable v-model="user.contrasenya" type="password" label="password">
+              <q-input square filled clearable v-model="user.contrasenya" :type="isPwd ? 'password' : 'text'" label="password">
                 <template v-slot:append>
                   <q-icon
                     :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -35,6 +36,7 @@
 <script>
 import {defineComponent} from "vue";
 import axios from "axios";
+import router from "../router";
 
 export default defineComponent({
   name: "LoginPage",
@@ -54,6 +56,7 @@ export default defineComponent({
       const response = await loginFetch.text();
 
       localStorage.setItem("token",response);
+      router.push("/admin")
     }
   }
 })
@@ -61,6 +64,7 @@ export default defineComponent({
 
 <style scoped>
 .q-card {
-  width: 560px;
+  width: 660px;
+  height: 400px;
 }
 </style>

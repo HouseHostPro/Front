@@ -4,6 +4,7 @@
       :key="`btn_size_sq_md`"
       color="primary"
       :label="`Nuevo usuario`"
+      @click="crearUsuario"
     />
   </div>
   <div class="q-pa-md">
@@ -24,8 +25,6 @@
 
 <script>
 import {defineComponent} from "vue"
-
-
 
 export default defineComponent({
   name: "AdminPage",
@@ -53,6 +52,9 @@ export default defineComponent({
       }catch (error){
         console.error('Error al obtener datos:',error);
       }
+    },
+    crearUsuario(){
+      this.$router.push({path:'createuser'})
     }
   }
 })
