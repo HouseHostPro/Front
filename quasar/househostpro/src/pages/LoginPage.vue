@@ -36,8 +36,7 @@
 <script>
 import {defineComponent} from "vue";
 import axios from "axios";
-import router from "../router";
-
+import {UserService} from "src/service/UserService.js";
 export default defineComponent({
   name: "LoginPage",
   data(){
@@ -46,17 +45,20 @@ export default defineComponent({
       isPwd: true
     }
   },
+  async created() {
+  },
   methods:{
     async login(){
-      localStorage.removeItem('token');
-      const loginFetch = await fetch("http://localhost:8080/usuari/login",{
-        method: 'POST',
-        body: JSON.stringify(this.user)
-      })
-      const response = await loginFetch.text();
+      try {
+        localStorage.removeItem('token');
+        const response = await UserService.login(this.user);
+        console.log(response);
+        localStorage.setItem("token",response);
+        await this.$router.push({path:'admin'});
+      }catch (error){
+        console.error("Error al iniciar sesión:", error);
+      }
 
-      localStorage.setItem("token",response);
-      router.push("/admin")
     }
   }
 })
