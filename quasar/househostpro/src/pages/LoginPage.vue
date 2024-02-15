@@ -50,7 +50,7 @@ export default defineComponent({
         const response = await UserService.login(this.user);
         console.log(response);
         localStorage.setItem("token",response);
-        await this.$router.push({path:'admin'});
+        await this.$router.push({path:'users'});
       }catch (error){
         console.error("Error al iniciar sesión:", error);
       }

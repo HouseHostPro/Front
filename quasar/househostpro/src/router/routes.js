@@ -8,7 +8,9 @@ const routes = [
       { path: 'users', component: () => import('pages/UsersPage.vue') },
       { path: 'user/:id', component: () => import('pages/FormUserPage.vue') },
       { path: 'user', component: () => import('pages/FormUserPage.vue') },
-      { path: 'login', component: () => import('pages/LoginPage.vue') }
+      { path: 'login', component: () => import('pages/LoginPage.vue') },
+      { path: 'dominis', component: () => import('pages/DominisPage.vue')},
+      { path: 'reservas', component: () => import('pages/ReservesPage.vue')}
     ]
   },
 
