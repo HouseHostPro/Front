@@ -4,10 +4,10 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'admin', component: () => import('pages/AdminPage.vue') },
-      { path: 'edituser', component: () => import('pages/EditUserPage.vue') },
-      { path: 'createuser', component: () => import('pages/FormUserPage.vue') },
+      { path: '', component: () => import('pages/loginPage.vue') },
+      { path: 'users', component: () => import('pages/UsersPage.vue') },
+      { path: 'user/:id', component: () => import('pages/FormUserPage.vue') },
+      { path: 'user', component: () => import('pages/FormUserPage.vue') },
       { path: 'login', component: () => import('pages/LoginPage.vue') }
     ]
   },

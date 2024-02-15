@@ -18,14 +18,19 @@
       selection="multiple"
       v-model:selected="selected"
     >
+      <template v-slot:body-cell-roles="props">
+        <q-td :props="props">
+          <div v-if="props.row.roles && props.row.roles.length">
+            {{ props.row.roles.map(role => role.nom).join(', ') }}
+          </div>
+        </q-td>
+      </template>
       <template v-slot:body-cell-Accio="props">
         <q-td :props="props">
           <div>
             <q-btn @click="editarUsuario(props.row)" icon="edit" color="primary">
-              Editar
             </q-btn>
             <q-btn @click="eliminarUsuario(props.row)" icon="delete" color="negative">
-              Eliminar
             </q-btn>
           </div>
         </q-td>
@@ -53,6 +58,7 @@ export default defineComponent({
         {name: 'nom',align: 'center',label: 'Nom',field: 'nom',sortable: true},
         {name: 'cognom1',align: 'center',label: 'Primer Cognom',field: 'cognom1',sortable: true},
         {name: 'email',align: 'center',label: 'Correu',field: 'email',sortable: true},
+        {name: 'roles',align: 'center',label: 'Rols',field: 'roles',sortable: true},
         {name: 'Accio',align: 'center',label: 'Accio',field: 'Accio',sortable: true},
       ]
     };
@@ -74,20 +80,20 @@ export default defineComponent({
     async eliminarUsuario(row) {
       try {
         await UserService.delete(row.id);
-        window.location.reload();
+        const index = this.rows.findIndex(user => user.id === row.id);
+        if (index !== -1){
+          this.rows.splice(index,1);
+        }
       } catch (error) {
-        console.error('Error al eliminar usuario:', error)
+        console.error('Error al eliminar usuario:', error);
+        alert("Error al eliminar usuario.");
       }
     },
     async editarUsuario(row) {
-      try {
-        await UserService.update(row.id);
-      } catch (error) {
-        console.error('Error al editar usuario:', error)
-      }
+      this.$router.push({path:`user/${row.id}`})
     },
     crearUsuario(){
-      this.$router.push({path:'createuser'})
+      this.$router.push({path:'user'})
     },
     getSelectedString () {
       return this.selected?.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.rows.length}`

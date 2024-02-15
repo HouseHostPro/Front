@@ -24,9 +24,6 @@
           <q-card-actions class="q-px-md">
             <q-btn unelevated color="light-blue-7" size="lg" class="full-width" label="Login" @click="login"/>
           </q-card-actions>
-          <q-card-section class="text-center q-pa-none">
-            <p class="text-grey-6">Not reigistered? Created an Account</p>
-          </q-card-section>
         </q-card>
       </div>
     </div>
@@ -35,7 +32,6 @@
 
 <script>
 import {defineComponent} from "vue";
-import axios from "axios";
 import {UserService} from "src/service/UserService.js";
 export default defineComponent({
   name: "LoginPage",

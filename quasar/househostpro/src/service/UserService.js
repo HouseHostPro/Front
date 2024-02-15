@@ -29,35 +29,22 @@ export class UserService{
     return await axios.get("http://localhost:8080/usuari/list");
   }
 
+  static async findUserById(id){
+    return await axios.get(`http://localhost:8080/usuari/usuaribyid/${id}`)
+  }
+
   static async findAllCiutats(){
     return await axios.get("http://localhost:8080/ciutats");
   }
 
   static async delete(id){
     try {
-      return await axios.post("http://localhost:8080/usuari/delete",id,{
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      return await axios.delete(`http://localhost:8080/usuari/delete/${id}`);
     }catch (error){
       console.error("Error al eliminar el usuario:", error);
       throw error;
     }
 
-  }
-
-  static async update(id){
-    try {
-      return await axios.post("http://localhost:8080/usuari/update",id,{
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-    }catch (error){
-      console.error("Error al editar el usuario:", error);
-      throw error;
-    }
   }
 
   static fromJSONToUser(json){
