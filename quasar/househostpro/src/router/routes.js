@@ -4,13 +4,17 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/loginPage.vue') },
-      { path: 'users', component: () => import('pages/UsersPage.vue') },
-      { path: 'user/:id', component: () => import('pages/FormUserPage.vue') },
-      { path: 'user', component: () => import('pages/FormUserPage.vue') },
-      { path: 'login', component: () => import('pages/LoginPage.vue') },
-      { path: 'dominis', component: () => import('pages/DominisPage.vue')},
-      { path: 'reservas', component: () => import('pages/ReservesPage.vue')}
+      { path: '', component: () => import('pages/loginPage.vue'),meta: { showSomePart: true } },
+      { path: 'users', component: () => import('pages/UsersPage.vue'),meta: { showSomePart: true } },
+      { path: 'user/:id', component: () => import('pages/FormUserPage.vue'),meta: { showSomePart: true } },
+      { path: 'user', component: () => import('pages/FormUserPage.vue'),meta: { showSomePart: true } },
+      { path: 'login', component: () => import('pages/LoginPage.vue'), meta: { showSomePart: false } },
+      { path: 'dominis', component: () => import('pages/DominisPage.vue'),meta: { showSomePart: true }},
+      { path: 'reserves', component: () => import('pages/ReservesPage.vue'),meta: { showSomePart: true }},
+      { path: 'reserves/:id_user', component: () => import('pages/ReservesPage.vue'),meta: { showSomePart: true }},
+      { path: 'reserves/:id_propietat', component: () => import('pages/ReservesPage.vue'),meta: { showSomePart: true }},
+      { path: 'reserva',component: () => import('pages/FormReservasPage.vue'),meta: { showSomePart: true }},
+      { path: 'reserva/:id',component: () => import('pages/FormReservasPage.vue'),meta: { showSomePart: true }}
     ]
   },
 

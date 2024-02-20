@@ -10,18 +10,22 @@ export default boot(({ app,router }) => {
 
     console.log("Status ok",config);
     config.withCredentials = true;
-    config.headers.set('Authorization',`Bearer ${localStorage.getItem('token')}`) ;
+    config.headers.Authorization =  `Bearer ${localStorage.getItem('token')}` ;
     return config;
-  },function (rej){
-    console.log("Status ko",rej.response.status);
+  },function (error){
+    console.log("Status ko",error);
+    return Promise.reject(error);
   });
 
   axios.interceptors.response.use(function (response){
       console.log("Status ok",response.status);
       return response.data;
-    },function (rej){
-      console.log("Status ko",rej.response.status);
-      router.push("/")
+    },function (error){
+      console.log("Status ko",error);
+      if (error.response && error.response.status === 401){
+        router.push("/login");
+      }
+      return Promise.reject(error);
     }
   )
 })

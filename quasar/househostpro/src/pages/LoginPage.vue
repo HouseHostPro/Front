@@ -41,20 +41,17 @@ export default defineComponent({
       isPwd: true
     }
   },
-  async created() {
-  },
   methods:{
     async login(){
       try {
         localStorage.removeItem('token');
         const response = await UserService.login(this.user);
-        console.log(response);
+        console.log("token "+response);
         localStorage.setItem("token",response);
         await this.$router.push({path:'users'});
       }catch (error){
         console.error("Error al iniciar sesión:", error);
       }
-
     }
   }
 })

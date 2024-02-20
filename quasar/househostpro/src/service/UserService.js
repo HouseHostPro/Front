@@ -3,11 +3,15 @@ import axios from "axios";
 export class UserService{
 
   static async login(user){
-    const response = await axios.post("http://localhost:8080/usuari/login",{
-      email: user.email,
-      contrasenya: user.contrasenya
-    })
-    return response;
+    try {
+      const response = await axios.post("http://localhost:8080/usuari/login",{
+        email: user.email,
+        contrasenya: user.contrasenya
+      })
+      return response;
+    }catch (error){
+      console.log(error,"el login no ha funcionado");
+    }
   }
 
   static async create(user){

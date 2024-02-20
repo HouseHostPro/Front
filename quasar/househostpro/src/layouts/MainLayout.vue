@@ -9,6 +9,7 @@
           icon="menu"
           aria-label="Menu"
           @click="toggleLeftDrawer"
+          v-if="$route.meta.showSomePart"
         />
         <q-toolbar-title>
           House Host Pro
@@ -17,7 +18,7 @@
     </q-header>
 
     <q-page-container>
-      <q-drawer show-if-above v-model="drawerModel" :width="drawerWidth">
+      <q-drawer show-if-above v-model="drawerModel" :width="drawerWidth" v-if="$route.meta.showSomePart">
         <q-list class="q-ma-auto">
           <q-item v-for="link in links"
                   :key="link.path"
@@ -35,23 +36,16 @@
 </template>
 
 <script>
-import {defineComponent, ref} from "vue";
-import loginPage from "pages/LoginPage.vue";
-import EssentialLink from "components/EssentialLink.vue";
+import {defineComponent} from "vue";
 
 export default defineComponent({
   name: 'MainLayout',
-  computed: {
-    loginPage() {
-      return loginPage
-    }
-  },
   data(){
     return {
       drawerModel: true,
       drawerWidth: 200,
       links: [
-        { path: '/usuaris', text: 'Usuaris' },
+        { path: '/users', text: 'Usuaris' },
         { path: '/reserves', text: 'Reserves' },
         { path: '/dominis', text: 'Dominis'}
       ]

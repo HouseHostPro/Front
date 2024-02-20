@@ -35,6 +35,14 @@
           </div>
         </q-td>
       </template>
+      <template v-slot:body-cell-reservas="props">
+        <q-td :props="props">
+          <div>
+            <q-btn @click="reservasUser(props.row)" icon="edit" color="primary">
+            </q-btn>
+          </div>
+        </q-td>
+      </template>
     </q-table>
     <div class="q-mt-md">
       Selected: {{ JSON.stringify(selected) }}
@@ -59,6 +67,7 @@ export default defineComponent({
         {name: 'cognom1',align: 'center',label: 'Primer Cognom',field: 'cognom1',sortable: true},
         {name: 'email',align: 'center',label: 'Correu',field: 'email',sortable: true},
         {name: 'roles',align: 'center',label: 'Rols',field: 'roles',sortable: true},
+        {name: 'reservas',align: 'center',label: 'Reservas',field: 'roles',sortable: true},
         {name: 'Accio',align: 'center',label: 'Accio',field: 'Accio',sortable: true},
       ]
     };
@@ -75,6 +84,7 @@ export default defineComponent({
         console.log(this.rows);
       }catch (error){
         console.error('Error al obtener datos:',error);
+        await this.$router.push({path:'login'});
       }
     },
     async eliminarUsuario(row) {
@@ -95,7 +105,10 @@ export default defineComponent({
     crearUsuario(){
       this.$router.push({path:'user'})
     },
-    getSelectedString () {
+    reservasUser(row){
+      this.$router.push({path: `reserves/${row.id}`})
+    },
+    getSelectedString() {
       return this.selected?.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.rows.length}`
     }
   }
