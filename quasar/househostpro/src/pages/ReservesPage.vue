@@ -8,15 +8,17 @@
     />
   </div>
   <div class="q-pa-md">
+    <q-input v-model="filter" placeholder="Buscar Reservas por ID del usuario o Email" dense outlined />
     <q-table
       flat bordered
       title="Reservas"
-      :rows="rows"
+      :rows="filteredRows"
       :columns="columns"
       row-key="id"
       :selected-rows-label="getSelectedString"
       selection="multiple"
       v-model:selected="selected"
+      :filter = "filter"
     >
       <template v-slot:body-cell-userReserva="props">
         <q-td :props="props">
@@ -35,9 +37,9 @@
       <template v-slot:body-cell-Accio="props">
         <q-td :props="props">
           <div>
-            <q-btn @click="editarUsuario(props.row)" icon="edit" color="primary">
+            <q-btn @click="editarReserva(props.row)" icon="edit" color="primary">
             </q-btn>
-            <q-btn @click="eliminarUsuario(props.row)" icon="delete" color="negative">
+            <q-btn @click="eliminarReserva(props.row)" icon="delete" color="negative">
             </q-btn>
           </div>
         </q-td>
@@ -68,7 +70,8 @@ export default {
         {name: 'data_inici',align: 'center',label: 'Inicio',field: 'data_inici',sortable: true},
         {name: 'data_fi',align: 'center',label: 'Fi',field: 'data_fi',sortable: true},
         {name: 'Accio',align: 'center',label: 'Accio',field: 'Accio',sortable: true},
-      ]
+      ],
+      filter: ''
     };
   },
   async created() {
@@ -85,10 +88,10 @@ export default {
         console.error('Error al obtener las reserves:',error);
       }
     },
-    async eliminarUsuario(row) {
+    async eliminarReserva(row) {
       try {
-        await UserService.delete(row.id);
-        const index = this.rows.findIndex(user => user.id === row.id);
+        await ReservaService.delete(row.id);
+        const index = this.rows.findIndex(reserva => reserva.id === row.id);
         if (index !== -1){
           this.rows.splice(index,1);
         }
@@ -97,14 +100,32 @@ export default {
         alert("Error al eliminar usuario.");
       }
     },
-    async editarUsuario(row) {
-      this.$router.push({path:`user/${row.id}`})
+    async editarReserva(row) {
+      this.$router.push({path:`reserva/${row.id}`})
     },
-    crearUsuario(){
-      this.$router.push({path:'user'})
+    crearReserva(){
+      this.$router.push({path:'reserva'})
     },
     getSelectedString () {
       return this.selected?.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.rows.length}`
+    }
+  },
+  computed: {
+    filteredRows() {
+      const userId = this.$route.params.id_user;
+      console.log(userId);
+      let searchTerm = this.filter.toLowerCase();
+      if (userId != null){
+        searchTerm = userId;
+      }
+      return this.rows.filter(reserva => {
+        console.log('Search Term:', searchTerm);
+        console.log('Email:', reserva.userReserva.email.toLowerCase());
+        return (
+          (reserva.userReserva.id.toString().includes(searchTerm) ||
+            reserva.userReserva.email.toLowerCase().includes(searchTerm))
+        );
+      });
     }
   }
 }

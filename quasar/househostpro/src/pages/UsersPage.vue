@@ -8,15 +8,17 @@
     />
   </div>
   <div class="q-pa-md">
+    <q-input v-model="filter" placeholder="Buscar usuario" dense outlined />
     <q-table
       flat bordered
       title="Usuarios"
-      :rows="rows"
+      :rows="filteredRows"
       :columns="columns"
       row-key="id"
       :selected-rows-label="getSelectedString"
       selection="multiple"
       v-model:selected="selected"
+      :filter = "filter"
     >
       <template v-slot:body-cell-roles="props">
         <q-td :props="props">
@@ -38,7 +40,7 @@
       <template v-slot:body-cell-reservas="props">
         <q-td :props="props">
           <div>
-            <q-btn @click="reservasUser(props.row)" icon="edit" color="primary">
+            <q-btn @click="reservasUser(props.row)" icon="search" color="primary">
             </q-btn>
           </div>
         </q-td>
@@ -69,7 +71,8 @@ export default defineComponent({
         {name: 'roles',align: 'center',label: 'Rols',field: 'roles',sortable: true},
         {name: 'reservas',align: 'center',label: 'Reservas',field: 'roles',sortable: true},
         {name: 'Accio',align: 'center',label: 'Accio',field: 'Accio',sortable: true},
-      ]
+      ],
+      filter: ''
     };
   },
   async created() {
@@ -110,6 +113,20 @@ export default defineComponent({
     },
     getSelectedString() {
       return this.selected?.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.rows.length}`
+    }
+  },
+  computed: {
+    filteredRows() {
+      const searchTerm = this.filter.toLowerCase();
+      return this.rows.filter(row => {
+        const userFields = [row.nom, row.cognom1, row.email].some(field => {
+          return field.toLowerCase().includes(searchTerm);
+        });
+        const rolesFound = row.roles && row.roles.some(role => {
+          return role.nom.toLowerCase().includes(searchTerm);
+        });
+        return userFields || rolesFound;
+      });
     }
   }
 })

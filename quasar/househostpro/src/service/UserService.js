@@ -48,7 +48,6 @@ export class UserService{
       console.error("Error al eliminar el usuario:", error);
       throw error;
     }
-
   }
 
   static fromJSONToUser(json){

@@ -81,6 +81,7 @@ export default defineComponent({
     async getUserData() {
       try {
         const userId = this.$route.params.id;
+        console.log(userId);
         if (userId) {
           const userData = await UserService.findUserById(userId);
           this.user = userData;
