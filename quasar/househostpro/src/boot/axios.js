@@ -30,13 +30,3 @@ export default boot(({ app,router }) => {
   )
 })
 export { axios }
-
-/*Vue.use(VueAxios,axios);
-const axiosBase = axios.create({
-  baseURL: 'http://localhost:8080',
-  timeout: 10000,
-});
-
-
-
-export { axiosBase }*/

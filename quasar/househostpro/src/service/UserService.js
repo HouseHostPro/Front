@@ -37,6 +37,10 @@ export class UserService{
     return await axios.get(`http://localhost:8080/usuari/usuaribyid/${id}`)
   }
 
+  static async findUserByEmail(email){
+    return await axios.get(`http://localhost:8080/usuari/usuaribyemail/${email}`)
+  }
+
   static async findAllCiutats(){
     return await axios.get("http://localhost:8080/ciutats");
   }

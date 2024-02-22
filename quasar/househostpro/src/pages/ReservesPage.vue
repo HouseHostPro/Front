@@ -113,10 +113,12 @@ export default {
   computed: {
     filteredRows() {
       const userId = this.$route.params.id_user;
+      const dominiId = this.$route.params.id_propietat;
       console.log(userId);
+      console.log(dominiId);
       let searchTerm = this.filter.toLowerCase();
-      if (userId != null){
-        searchTerm = userId;
+      if (userId != null || dominiId != null){
+        searchTerm = (userId != null) ? userId : dominiId;
       }
       return this.rows.filter(reserva => {
         console.log('Search Term:', searchTerm);
