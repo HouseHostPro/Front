@@ -47,7 +47,8 @@ export default defineComponent({
       links: [
         { path: '/users', text: 'Usuaris' },
         { path: '/reserves', text: 'Reserves' },
-        { path: '/dominis', text: 'Propietats'}
+        { path: '/dominis', text: 'Propietats'},
+        { path: '/configuracions', text: 'Configuracions'}
       ]
     }
   },

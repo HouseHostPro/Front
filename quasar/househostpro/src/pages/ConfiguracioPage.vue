@@ -73,8 +73,14 @@ export default {
       try {
         const dominiId = this.$route.params.id_propietat;
         console.log(dominiId);
-        const respuesta = await ConfiguracionsService.findConfiguracionsByPropietat(dominiId);
-        this.rows = await respuesta;
+        if (dominiId != null){
+          const respuesta = await ConfiguracionsService.findConfiguracionsByPropietat(dominiId);
+          this.rows = await respuesta;
+        }else{
+          const repuesta = await ConfiguracionsService.findAllConfiguracions();
+          this.rows = await repuesta;
+        }
+
         console.log(this.rows);
       } catch (error) {
         console.error('Error al obtener las configuracions:', error);

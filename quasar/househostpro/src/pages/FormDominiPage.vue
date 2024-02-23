@@ -88,14 +88,16 @@ export default {
           const configData = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.dominiName.clau,parseInt(dominiData.id));
           this.domini = dominiData;
           this.dominiName = configData;
-          console.log();
+          console.log("dominiData",dominiData);
           this.domini.id= dominiData.id;
           this.domini.ciutat.label = dominiData.ciutat.nom;
           this.domini.ciutat.value = dominiData.ciutat.id;
           this.email = dominiData.userPropietat.email;
+          this.dominiName.valor = configData.valor;
+          this.domini.plantilla = dominiData.plantillaPropietat;
           this.domini.plantilla.label = dominiData.plantillaPropietat.nom;
           this.domini.plantilla.value = dominiData.plantillaPropietat.id;
-          this.dominiName.valor = configData.valor;
+
         }
       } catch (error) {
         console.error('Error al obtener datos del domini:', error);
