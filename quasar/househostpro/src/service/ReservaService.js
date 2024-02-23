@@ -10,6 +10,10 @@ export class ReservaService{
     return await axios.get(`http://localhost:8080/reserva/reservasuser/${id_user}`);
   }
 
+  static async findReservesByPropietatId(id_propietat){
+    return await axios.get(`http://localhost:8080/reserva/reservaspropietat/${id_propietat}`);
+  }
+
 
   static async delete(id){
     try {

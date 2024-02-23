@@ -8,7 +8,7 @@
     />
   </div>
   <div class="q-pa-md">
-    <q-input v-model="filter" placeholder="Buscar Reservas por ID del usuario o Email" dense outlined />
+    <q-input v-model="filter" placeholder="Buscar Reserva" dense outlined />
     <q-table
       flat bordered
       title="Reservas"
@@ -81,8 +81,19 @@ export default {
   methods: {
     async datosReserves(){
       try {
-        const respuesta = await ReservaService.findAllReserves();
-        this.rows =await respuesta;
+        const dominiId = this.$route.params.id_propietat;
+        const userId = this.$route.params.id_user;
+        console.log(dominiId,userId);
+        if (dominiId != null){
+          const respuesta = await ReservaService.findReservesByPropietatId(dominiId);
+          this.rows =await respuesta;
+        }else if (userId != null){
+          const respuesta = await ReservaService.findReservesByUserId(userId);
+          this.rows =await respuesta;
+        }else {
+          const respuesta = await ReservaService.findAllReserves();
+          this.rows =await respuesta;
+        }
         console.log(this.rows);
       }catch (error){
         console.error('Error al obtener las reserves:',error);
@@ -112,21 +123,18 @@ export default {
   },
   computed: {
     filteredRows() {
-      const userId = this.$route.params.id_user;
-      const dominiId = this.$route.params.id_propietat;
-      console.log(userId);
-      console.log(dominiId);
       let searchTerm = this.filter.toLowerCase();
-      if (userId != null || dominiId != null){
-        searchTerm = (userId != null) ? userId : dominiId;
-      }
       return this.rows.filter(reserva => {
-        console.log('Search Term:', searchTerm);
-        console.log('Email:', reserva.userReserva.email.toLowerCase());
-        return (
-          (reserva.userReserva.id.toString().includes(searchTerm) ||
-            reserva.userReserva.email.toLowerCase().includes(searchTerm))
-        );
+        let searchDate = new Date(searchTerm);
+
+        let startDate = new Date(reserva.data_inici);
+        let endDate = new Date(reserva.data_fi);
+
+        let idMatch = reserva.userReserva.id.toString().includes(searchTerm);
+        let emailMatch = reserva.userReserva.email.toLowerCase().includes(searchTerm);
+        let dateMatch = startDate.getTime() === searchDate.getTime() || endDate.getTime() === searchDate.getTime();
+
+        return idMatch || emailMatch || dateMatch;
       });
     }
   }

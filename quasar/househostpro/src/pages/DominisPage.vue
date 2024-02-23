@@ -129,7 +129,7 @@ export default {
       this.$router.push({path: 'domini'})
     },
     reservasDomini(row) {
-      this.$router.push({path: `reservas/${row.id}`})
+      this.$router.push({path: `reserves/${row.id}`})
     },
     configuracionsDomini(row) {
       this.$router.push({path: `configuracions/${row.id}`})
