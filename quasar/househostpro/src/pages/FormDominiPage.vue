@@ -16,11 +16,14 @@
         </div>
       </div>
       <div class="row q-col-gutter-x-md q-col-gutter-y-md">
-        <div class="col-6">
+        <div class="col-4">
           <q-input v-model="email" type="email" @input="getUser" label="Email"></q-input>
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <q-input v-model="dominiName.valor" type="text" label="Domini"></q-input>
+        </div>
+        <div class="col-4">
+          <q-input v-model="preuBase.valor" type="text" label="Preu Base"></q-input>
         </div>
       </div>
       <div class="row q-col-gutter-x-md q-col-gutter-y-md">
@@ -67,6 +70,10 @@ export default {
         clau: ref("domini"),
         valor: ref('')
       },
+      preuBase: {
+        clau: ref("preu_base"),
+        valor: ref('')
+      },
       user: [],
       ciutats: [],
       email: ref(''),
@@ -86,8 +93,10 @@ export default {
         if (dominiId) {
           const dominiData = await PropietatService.findPropietatByid(dominiId);
           const configData = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.dominiName.clau,parseInt(dominiData.id));
+          const preuBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.preuBase.clau,parseInt(dominiData.id));
           this.domini = dominiData;
           this.dominiName = configData;
+          this.preuBase = preuBase;
           console.log("dominiData",dominiData);
           this.domini.id= dominiData.id;
           this.domini.ciutat.label = dominiData.ciutat.nom;
@@ -97,6 +106,8 @@ export default {
           this.domini.plantilla = dominiData.plantillaPropietat;
           this.domini.plantilla.label = dominiData.plantillaPropietat.nom;
           this.domini.plantilla.value = dominiData.plantillaPropietat.id;
+          this.preuBase.valor = preuBase.valor;
+          console.log(this.preuBase);
 
         }
       } catch (error) {
@@ -142,7 +153,9 @@ export default {
             plantilla_id: this.domini.plantilla.value,
             ciutat_id: this.domini.ciutat.value,
             clau: this.dominiName.clau,
-            valor: this.dominiName.valor
+            valor: this.dominiName.valor,
+            preuClau: this.preuBase.clau,
+            preuValor: this.preuBase.valor
           }
           console.log(domini.usuari_id);
           console.log(domini);
