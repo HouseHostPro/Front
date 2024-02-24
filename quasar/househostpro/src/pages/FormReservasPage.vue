@@ -4,38 +4,31 @@
   </div>
   <div class="q-pa-xl text-center">
     <q-form
-      @submit="crearUsuario"
+      @submit="crearReserva"
       class="q-gutter-md"
     >
       <div class="row q-col-gutter-x-md q-col-gutter-y-md">
-        <div class="col-4">
-          <q-input v-model="user.nom" label="Nom"></q-input>
-        </div>
-        <div class="col-4">
-          <q-input v-model="user.cognom1" label="Cognom 1"></q-input>
-        </div>
-        <div class="col-4">
-          <q-input v-model="user.cognom2" label="Cognom 2"></q-input>
-        </div>
-      </div>
-
-      <div class="row q-col-gutter-x-md q-col-gutter-y-md">
         <div class="col-6">
-          <q-input v-model="user.email" type="email" label="Email"></q-input>
+          <q-input v-model="reserva.estat" label="Estado"></q-input>
         </div>
         <div class="col-6">
-          <q-input v-if="isNewUser" v-model="contrasenya" type="password" label="Contrasenya"></q-input>
-        </div>
-        <div class="col-6">
-          <q-input v-model="user.telefon" type="tel" label="telefon"></q-input>
+          <q-input v-model="reserva.persones" label="Personas"></q-input>
         </div>
       </div>
       <div class="row q-col-gutter-x-md q-col-gutter-y-md">
         <div class="col-6">
-          <q-input v-model="user.direccio" label="Direcció"></q-input>
+          <q-input v-model="email" type="email" @input="getUser" label="Email"></q-input>
         </div>
         <div class="col-6">
-          <q-select v-model="user.ciutat" :options="opcionesCiutats" label="Ciutat" value-field="value" />
+          <q-input v-model="nomPropietat" type="text" @input="getPropietat" label="Casa"></q-input>
+        </div>
+      </div>
+      <div class="row q-col-gutter-x-md q-col-gutter-y-md">
+        <div class="col-6">
+          <q-input v-model="reserva.data_inici" type="date" label="Fecha Inicio"></q-input>
+        </div>
+        <div class="col-6">
+          <q-input v-model="reserva.data_fi" type="date" label="Fecha Fin"></q-input>
         </div>
       </div>
       <div class="row q-col-gutter-x-md q-col-gutter-y-md">
@@ -51,6 +44,8 @@
 <script>
 import {ref} from "vue";
 import {UserService} from "src/service/UserService";
+import {ReservaService} from "src/service/ReservaService";
+import {PropietatService} from "src/service/PropietatService";
 
 export default {
   name: "FormReservasPage",
@@ -58,64 +53,83 @@ export default {
     return{
       reserva:{
         id: ref(undefined),
-        preu_total: ref(''),
         estat: ref(''),
         persones: ref(''),
-        userReserva: ref(''),
-        propietat: ref(''),
-        userPropietat: ref(''),
+        usuari_id: ref(''),
+        propietat_id: ref(''),
         data_inici: ref(''),
         data_fi: ref('')
-      }
+      },
+      email: ref(''),
+      user: [],
+      nomPropietat: ref(''),
+      propietat: []
     }
   },
   async created() {
-    await this.listCiutats();
-    await this.getUserData();
+    await this.getReservaData();
   },
   methods:{
-    async getUserData() {
+    async getReservaData() {
       try {
-        const userId = this.$route.params.id;
-        console.log(userId);
-        if (userId) {
-          const userData = await UserService.findUserById(userId);
-          this.user = userData;
-          this.user.id= userData.id;
-          this.user.ciutat.label = userData.ciutat.nom;
-          this.user.ciutat.value = userData.ciutat.id;
-          this.user.roles_user = userData.roles;
-          this.isNewUser = false;
-          console.log("id ciudad "+this.user.ciutat.value);
+        const reservaId = this.$route.params.id;
+        console.log(reservaId);
+        if (reservaId) {
+          const reservaData = await ReservaService.findReservesById(reservaId);
+          this.reserva = reservaData;
+          this.reserva.id= reservaData.id;
+          this.reserva.persones = reservaData.persones;
+          this.reserva.userReserva = reservaData.userReserva.id;
+          this.reserva.estat = reservaData.estat;
+          this.reserva.data_inici = reservaData.data_inici;
+          this.reserva.data_fi = reservaData.data_fi;
+          this.reserva.propietat_id = reservaData.propietat.id;
         }
       } catch (error) {
-        console.error('Error al obtener datos del usuario:', error);
+        console.error('Error al obtener datos de la reserva:', error);
       }
     },
-    async listCiutats(){
+    async getUser(){
       try {
-        this.ciutats = await UserService.findAllCiutats();
+        console.log(this.email)
+        this.user = await UserService.findUserByEmail(this.email);
+        console.log(this.user);
+        console.log(this.user.id);
+        this.reserva.usuari_id = this.user.id;
       }catch (error){
-        console.error('Error al obtener datos:',error)
+        console.log("Error de obtener user: ",error)
       }
     },
-    async crearUsuario(){
+    async getPropietat(){
       try {
-        const user = {
-          id: this.user.id,
-          nom: this.user.nom,
-          cognom1: this.user.cognom1,
-          cognom2: this.user.cognom2,
-          email: this.user.email,
-          contrasenya: this.contrasenya,
-          telefon: this.user.telefon,
-          direccio: this.user.direccio,
-          ciutat_id: this.user.ciutat.value
+        this.propietat = await PropietatService.findPropietatByNom(this.nomPropietat);
+        console.log(this.propietat.id);
+        this.reserva.propietat_id = this.propietat.id;
+      }catch (error){
+        console.log("Error de obtener propiedad: ",error);
+      }
+    },
+    async crearReserva(){
+      try {
+        await this.getUser();
+        await this.getPropietat();
+        if (this.user || this.propietat){
+          const reserva = {
+            id: this.reserva.id,
+            estat: this.reserva.estat,
+            persones: this.reserva.persones,
+            usuari_id: this.reserva.usuari_id,
+            propietat_id: this.reserva.propietat_id,
+            data_inici: this.reserva.data_inici,
+            data_fi: this.reserva.data_fi
+          }
+          console.log(reserva);
+          await ReservaService.create(reserva);
+          console.log("Usuario creado");
+          await this.$router.push({path: '/reserves'});
+        }else {
+          console.log("propietat o usuario no encontrado");
         }
-        console.log(user);
-        await UserService.create(user)
-        console.log("Usuario creado");
-        await this.$router.push({path: '/users'});
       }catch (error){
         console.error('Error al enviar datos:',error);
       }
@@ -129,13 +143,12 @@ export default {
     }
   },
   computed:{
-    opcionesCiutats(){
-      return this.ciutats.map(ciutat => ({label: ciutat.nom, value: ciutat.id}));
-    }
   }
 }
 </script>
 
-<style scoped>
-
+<style>
+.icono-flecha {
+  font-size: 24px;
+}
 </style>

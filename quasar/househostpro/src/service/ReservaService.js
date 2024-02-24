@@ -14,6 +14,23 @@ export class ReservaService{
     return await axios.get(`http://localhost:8080/reserva/reservaspropietat/${id_propietat}`);
   }
 
+  static async findReservesById(id){
+    return await axios.get(`http://localhost:8080/reserva/reserva/${id}`);
+  }
+
+  static async create(reserva){
+    try {
+      const repuesta = await axios.post("http://localhost:8080/reserva/create",reserva,{
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      return repuesta;
+    }catch (error){
+      console.error("Error al crear domini:", error);
+      throw error;
+    }
+  }
 
   static async delete(id){
     try {

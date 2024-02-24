@@ -17,6 +17,10 @@ export class PropietatService{
     return await axios.get(`http://localhost:8080/propietat/userpropietat/${id_user}`);
   }
 
+  static async findPropietatByNom(nom){
+    return await axios.get(`http://localhost:8080/propietat/propietatbynom/${nom}`);
+  }
+
   static async create(propietat){
     try {
       const repuesta = await axios.post("http://localhost:8080/propietat/createpropietat",propietat,{
