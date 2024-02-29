@@ -87,7 +87,6 @@ export default defineComponent({
         console.log(this.rows);
       }catch (error){
         console.error('Error al obtener datos:',error);
-        await this.$router.push({path:'login'});
       }
     },
     async eliminarUsuario(row) {

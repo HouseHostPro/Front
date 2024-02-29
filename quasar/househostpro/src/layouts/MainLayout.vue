@@ -20,6 +20,11 @@
     <q-page-container>
       <q-drawer show-if-above v-model="drawerModel" :width="drawerWidth" v-if="$route.meta.showSomePart">
         <q-list class="q-ma-auto">
+          <q-item-label
+            header
+          >
+            Panel de control
+          </q-item-label>
           <q-item v-for="link in links"
                   :key="link.path"
                   clickable @click="irALink(link.path)"
@@ -46,7 +51,7 @@ export default defineComponent({
       drawerWidth: 200,
       links: [
         { path: '/users', text: 'Usuaris' },
-        { path: '/reserves', text: 'Reserves' },
+        { path: '/reserves', text: 'Reserves'},
         { path: '/dominis', text: 'Propietats'},
         { path: '/configuracions', text: 'Configuracions'}
       ]

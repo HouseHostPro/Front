@@ -10,7 +10,7 @@ export default boot(({ app,router }) => {
 
     console.log("Status ok",config);
     config.withCredentials = true;
-    config.headers.Authorization =  `Bearer ${localStorage.getItem('token')}` ;
+    config.headers.Authorization =  `Bearer ${localStorage.getItem('token')}`;
     return config;
   },function (error){
     console.log("Status ko",error);
@@ -22,11 +22,18 @@ export default boot(({ app,router }) => {
       return response.data;
     },function (error){
       console.log("Status ko",error);
-      if (error.response && error.response.status === 401){
+      if (error.response && error.response.status === 400 || error.response && error.response.status === 401){
         router.push("/login");
       }
       return Promise.reject(error);
+    });
+  router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem('token');
+    if (!token && to.fullPath !== '/login') {
+      next('/login');
+    } else {
+      next();
     }
-  )
+  });
 })
 export { axios }

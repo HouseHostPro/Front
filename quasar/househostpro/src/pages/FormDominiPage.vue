@@ -12,7 +12,7 @@
           <q-input v-model="domini.nom" label="Nom"></q-input>
         </div>
         <div class="col-4">
-          <q-input v-model="domini.m2" label="m2"></q-input>
+          <q-input v-model="domini.m2" type="number" label="m2"></q-input>
         </div>
       </div>
       <div class="row q-col-gutter-x-md q-col-gutter-y-md">
@@ -23,7 +23,7 @@
           <q-input v-model="dominiName.valor" type="text" label="Domini"></q-input>
         </div>
         <div class="col-4">
-          <q-input v-model="preuBase.valor" type="text" label="Preu Base"></q-input>
+          <q-input v-model="preuBase.valor" type="number" label="Preu Base"></q-input>
         </div>
       </div>
       <div class="row q-col-gutter-x-md q-col-gutter-y-md">
@@ -35,6 +35,26 @@
         </div>
         <div class="col-4">
           <q-select v-model="domini.plantilla" :options="opcionesPlantillas" label="Plantilla" value-field="value" />
+        </div>
+      </div>
+      <div class="row q-col-gutter-x-md q-col-gutter-y-md">
+        <div class="col-2">
+          <q-input v-model="PrecioLimpieza.valor" label="Precio Limpieza" type="number"/>
+        </div>
+        <div class="col-2">
+          <q-input v-model="horaEntrada.valor" filled type="time" label="Hora Entrada" />
+        </div>
+        <div class="col-2">
+          <q-input v-model="horaSalida.valor" filled type="time" label="Hora Salida" />
+        </div>
+        <div class="col-2">
+          <q-toggle v-model="fumar.valor" label="Fumar"/>
+        </div>
+        <div class="col-2">
+          <q-toggle v-model="mascotas.valor" label="Mascotas"/>
+        </div>
+        <div class="col-2">
+          <q-toggle v-model="visitas.valor" label="Visitas"/>
         </div>
       </div>
       <div class="row q-col-gutter-x-md q-col-gutter-y-md">
@@ -74,6 +94,30 @@ export default {
         clau: ref("preu_base"),
         valor: ref('')
       },
+      mascotas: {
+        clau: ref("mascotas"),
+        valor: ref('')
+      },
+      fumar: {
+        clau: ref("fumar"),
+        valor: ref('')
+      },
+      visitas: {
+        clau: ref("visitas"),
+        valor: ref('')
+      },
+      horaEntrada: {
+        clau: ref("hora_entrada"),
+        valor: ref('')
+      },
+      horaSalida: {
+        clau: ref("hora_salida"),
+        valor: ref('')
+      },
+      PrecioLimpieza: {
+        clau: ref("preu_neteja"),
+        valor: ref('')
+      },
       user: [],
       ciutats: [],
       email: ref(''),
@@ -94,9 +138,21 @@ export default {
           const dominiData = await PropietatService.findPropietatByid(dominiId);
           const configData = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.dominiName.clau,parseInt(dominiData.id));
           const preuBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.preuBase.clau,parseInt(dominiData.id));
+          const fumarBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.fumar.clau,parseInt(dominiData.id));
+          const mascotaBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.mascotas.clau,parseInt(dominiData.id));
+          const visitasBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.visitas.clau,parseInt(dominiData.id));
+          const entradaBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.horaEntrada.clau,parseInt(dominiData.id));
+          const salidaBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.horaSalida.clau,parseInt(dominiData.id));
+          const natejaBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.PrecioLimpieza.clau,parseInt(dominiData.id));
           this.domini = dominiData;
           this.dominiName = configData;
           this.preuBase = preuBase;
+          this.fumar = fumarBase;
+          this.mascotas = mascotaBase;
+          this.visitas = visitasBase;
+          this.horaEntrada = entradaBase;
+          this.horaSalida = salidaBase;
+          this.PrecioLimpieza = natejaBase;
           console.log("dominiData",dominiData);
           this.domini.id= dominiData.id;
           this.domini.ciutat.label = dominiData.ciutat.nom;
@@ -107,6 +163,12 @@ export default {
           this.domini.plantilla.label = dominiData.plantillaPropietat.nom;
           this.domini.plantilla.value = dominiData.plantillaPropietat.id;
           this.preuBase.valor = preuBase.valor;
+          this.fumar.valor = fumarBase.valor;
+          this.mascotas.valor = mascotaBase.valor;
+          this.visitas.valor = visitasBase.valor;
+          this.horaEntrada.valor = entradaBase.valor;
+          this.horaSalida.valor = salidaBase.valor;
+          this.PrecioLimpieza.valor = natejaBase.valor;
           console.log(this.preuBase);
 
         }
@@ -155,7 +217,19 @@ export default {
             clau: this.dominiName.clau,
             valor: this.dominiName.valor,
             preuClau: this.preuBase.clau,
-            preuValor: this.preuBase.valor
+            preuValor: this.preuBase.valor,
+            fumarClau: this.fumar.clau,
+            fumarValor: this.fumar.valor,
+            mascotasClau: this.mascotas.clau,
+            mascotasValor: this.mascotas.valor,
+            visitasClau: this.visitas.clau,
+            visitasValor: this.visitas.valor,
+            entradaClau: this.horaEntrada.clau,
+            entradaValor: this.horaEntrada.valor,
+            salidaClau: this.horaSalida.clau,
+            salidaValor: this.horaSalida.valor,
+            limpiezaClau: this.PrecioLimpieza.clau,
+            limpiezaValor: this.PrecioLimpieza.valor
           }
           console.log(domini.usuari_id);
           console.log(domini);

@@ -58,7 +58,7 @@ export default {
         {name: 'id',align: 'center',label: 'ID',field: 'id',sortable: true},
         {name: 'propietatConfiguracio',align: 'center',label: 'Casa',field: 'propietatConfiguracio',sortable: true},
         {name: 'clau',align: 'center',label: 'Tipo',field: 'clau',sortable: true},
-        {name: 'valor',align: 'center',label: 'Configuracio',field: 'valor',sortable: true},
+        {name: 'valor',align: 'center',label: 'Configuracio',field: (row)=>(row.valor==='true')?'si':(row.valor==='false')?'no':row.valor,sortable: true },
         {name: 'Accio',align: 'center',label: 'Accio',field: 'Accio',sortable: true},
       ],
       filter: '',

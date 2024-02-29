@@ -12,7 +12,7 @@
           <q-input v-model="reserva.estat" label="Estado"></q-input>
         </div>
         <div class="col-6">
-          <q-input v-model="reserva.persones" label="Personas"></q-input>
+          <q-input v-model="reserva.persones" type="number" label="Personas"></q-input>
         </div>
       </div>
       <div class="row q-col-gutter-x-md q-col-gutter-y-md">
