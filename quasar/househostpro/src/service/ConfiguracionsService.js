@@ -6,6 +6,10 @@ export class ConfiguracionsService{
     return await axios.get("http://localhost:8080/configuracio/listconfiguracions");
   }
 
+  static async findConfiguracioById(id){
+    return await axios.get(`http://localhost:8080/configuracio/config/${id}`)
+  }
+
   static async findConfiguracionsByPropietat(id_propietat){
     return await axios.get(`http://localhost:8080/configuracio/configpropietat/${id_propietat}`)
   }
@@ -16,7 +20,7 @@ export class ConfiguracionsService{
 
   static async create(config){
     try {
-      const repuesta = await axios.post("http://localhost:8080/configuracio/createpropietat",config,{
+      const repuesta = await axios.post("http://localhost:8080/configuracio/createconfiguracio",config,{
         headers: {
           'Content-Type': 'application/json'
         }

@@ -163,9 +163,9 @@ export default {
           this.domini.plantilla.label = dominiData.plantillaPropietat.nom;
           this.domini.plantilla.value = dominiData.plantillaPropietat.id;
           this.preuBase.valor = preuBase.valor;
-          this.fumar.valor = fumarBase.valor;
-          this.mascotas.valor = mascotaBase.valor;
-          this.visitas.valor = visitasBase.valor;
+          this.fumar.valor = fumarBase.valor === "true";
+          this.mascotas.valor = mascotaBase.valor === "true";
+          this.visitas.valor = visitasBase.valor === "true";
           this.horaEntrada.valor = entradaBase.valor;
           this.horaSalida.valor = salidaBase.valor;
           this.PrecioLimpieza.valor = natejaBase.valor;

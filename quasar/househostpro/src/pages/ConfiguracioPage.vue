@@ -3,7 +3,7 @@
     <q-btn
       :key="`btn_size_sq_md`"
       color="primary"
-      :label="`Nuevas Configuracions`"
+      :label="`Nueva Configuracion`"
       @click="crearConfiguracio"
     />
   </div>
@@ -88,14 +88,14 @@ export default {
     },
     async eliminarConfiguracio(row) {
       try {
-        await ReservaService.delete(row.id);
-        const index = this.rows.findIndex(domini => domini.id === row.id);
+        await ConfiguracionsService.delete(row.id);
+        const index = this.rows.findIndex(config => config.id === row.id);
         if (index !== -1) {
           this.rows.splice(index, 1);
         }
       } catch (error) {
-        console.error('Error al eliminar domini:', error);
-        alert("Error al eliminar domini.");
+        console.error('Error al eliminar la configuracion:', error);
+        alert("Error al eliminar la configuracion.");
       }
     },
     async editarConfiguracio(row) {
