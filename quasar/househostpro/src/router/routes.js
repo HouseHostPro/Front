@@ -21,7 +21,10 @@ const routes = [
       { path: 'reserves/:id_user', component: () => import('pages/ReservesPage.vue'),meta: { showSomePart: true }},
       { path: 'reserves/:id_propietat', component: () => import('pages/ReservesPage.vue'),meta: { showSomePart: true }},
       { path: 'reserva',component: () => import('pages/FormReservasPage.vue'),meta: { showSomePart: true }},
-      { path: 'reserva/:id',component: () => import('pages/FormReservasPage.vue'),meta: { showSomePart: true }}
+      { path: 'reserva/:id',component: () => import('pages/FormReservasPage.vue'),meta: { showSomePart: true }},
+      { path: 'preutemporadas/:id_propietat', component: () => import('pages/PreuTemporadaPage.vue'),meta: { showSomePart: true }},
+      { path: 'preutemporada', component: () => import('pages/FormPreuTemporadaPage.vue'),meta: { showSomePart: true }},
+      { path: 'preutemporada/:id', component: () => import('pages/FormPreuTemporadaPage.vue'),meta: { showSomePart: true }},
     ]
   },
 

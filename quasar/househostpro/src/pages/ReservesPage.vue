@@ -107,15 +107,15 @@ export default {
           this.rows.splice(index,1);
         }
       } catch (error) {
-        console.error('Error al eliminar usuario:', error);
-        alert("Error al eliminar usuario.");
+        console.error('Error al eliminar reserva:', error);
+        alert("Error al eliminar reserva.");
       }
     },
     async editarReserva(row) {
-      this.$router.push({path:`reserva/${row.id}`})
+      this.$router.push({path:`/reserva/${row.id}`})
     },
     crearReserva(){
-      this.$router.push({path:'reserva'})
+      this.$router.push({path:'/reserva'})
     },
     getSelectedString () {
       return this.selected?.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.rows.length}`

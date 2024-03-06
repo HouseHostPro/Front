@@ -27,7 +27,7 @@ export class ReservaService{
       });
       return repuesta;
     }catch (error){
-      console.error("Error al crear domini:", error);
+      console.error("Error al crear reserva:", error);
       throw error;
     }
   }
@@ -36,7 +36,7 @@ export class ReservaService{
     try {
       return await axios.delete(`http://localhost:8080/reserva/delete/${id}`);
     }catch (error){
-      console.error("Error al eliminar el usuario:", error);
+      console.error("Error al eliminar la reserva:", error);
       throw error;
     }
   }
