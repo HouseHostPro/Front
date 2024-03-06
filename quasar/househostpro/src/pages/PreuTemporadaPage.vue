@@ -77,7 +77,7 @@ export default {
         this.rows =await respuesta;
         console.log(this.rows);
       }catch (error){
-        console.error('Error al obtener las reserves:',error);
+        console.error('Error al obtener el preu temporada:',error);
       }
     },
     async eliminarPreuTemporada(row) {

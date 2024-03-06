@@ -20,14 +20,13 @@ export class ConfiguracionsService{
 
   static async create(config){
     try {
-      const repuesta = await axios.post("http://localhost:8080/configuracio/createconfiguracio",config,{
+      return await axios.post("http://localhost:8080/configuracio/createconfiguracio", config, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      return repuesta;
     }catch (error){
-      console.error("Error al crear domini:", error);
+      console.error("Error al crear configuracio:", error);
       throw error;
     }
   }
@@ -36,7 +35,7 @@ export class ConfiguracionsService{
     try {
       return await axios.delete(`http://localhost:8080/configuracio/delete/${id}`);
     }catch (error){
-      console.error("Error al eliminar el usuario:", error);
+      console.error("Error al eliminar la configuracio:", error);
       throw error;
     }
   }

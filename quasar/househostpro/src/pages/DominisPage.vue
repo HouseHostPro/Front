@@ -57,6 +57,14 @@
           </div>
         </q-td>
       </template>
+      <template v-slot:body-cell-serveis="props">
+        <q-td :props="props">
+          <div>
+            <q-btn @click="serveiDomini(props.row)" icon="search" color="primary">
+            </q-btn>
+          </div>
+        </q-td>
+      </template>
       <template v-slot:body-cell-preuTemporada="props">
         <q-td :props="props">
           <div>
@@ -98,6 +106,7 @@ export default {
         {name: 'ciutat',align: 'center',label: 'Ciutat',field: 'ciutat',sortable: true},
         {name: 'plantillaPropietat',align: 'center',label: 'Plantilla',field: 'plantillaPropietat',sortable: true},
         {name: 'configuracions',align: 'center',label: 'Configuracions',field: 'configuracions',sortable: true},
+        {name: 'serveis',align: 'center',label: 'Serveis',field: 'serveis',sortable: true},
         {name: 'preuTemporada',align: 'center',label: 'Preu Temporadas',field: 'preuTemporada',sortable: true},
         {name: 'reservas',align: 'center',label: 'Reservas',field: 'reservas',sortable: true},
         {name: 'Accio',align: 'center',label: 'Accio',field: 'Accio',sortable: true},
@@ -145,6 +154,9 @@ export default {
     },
     preuTemporadaDomini(row) {
       this.$router.push({path: `preutemporadas/${row.id}`})
+    },
+    serveiDomini(row) {
+      this.$router.push({path: `serveis/${row.id}`})
     },
     getSelectedString() {
       return this.selected?.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.rows.length}`

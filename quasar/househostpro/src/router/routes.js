@@ -25,6 +25,10 @@ const routes = [
       { path: 'preutemporadas/:id_propietat', component: () => import('pages/PreuTemporadaPage.vue'),meta: { showSomePart: true }},
       { path: 'preutemporada', component: () => import('pages/FormPreuTemporadaPage.vue'),meta: { showSomePart: true }},
       { path: 'preutemporada/:id', component: () => import('pages/FormPreuTemporadaPage.vue'),meta: { showSomePart: true }},
+      { path: 'serveis', component: () => import('pages/ServeiPage.vue'),meta: { showSomePart: true }},
+      { path: 'serveis/:id_propietat', component: () => import('pages/ServeiPage.vue'),meta: { showSomePart: true }},
+      { path: 'servei', component: () => import('pages/FormServeiPage.vue'),meta: { showSomePart: true }},
+      { path: 'servei/:id', component: () => import('pages/FormServeiPage.vue'),meta: { showSomePart: true }},
     ]
   },
 
