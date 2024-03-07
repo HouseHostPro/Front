@@ -29,6 +29,12 @@ const routes = [
       { path: 'serveis/:id_propietat', component: () => import('pages/ServeiPage.vue'),meta: { showSomePart: true }},
       { path: 'servei', component: () => import('pages/FormServeiPage.vue'),meta: { showSomePart: true }},
       { path: 'servei/:id', component: () => import('pages/FormServeiPage.vue'),meta: { showSomePart: true }},
+      { path: 'espais', component: () => import('pages/EspaiPage.vue'),meta: { showSomePart: true }},
+      { path: 'espais/:id_propietat', component: () => import('pages/EspaiPage.vue'),meta: { showSomePart: true }},
+      { path: 'espai', component: () => import('pages/FormEspaiPage.vue'),meta: { showSomePart: true }},
+      { path: 'espaidefecte', component: () => import('pages/FormEspaisDefectePage.vue'),meta: { showSomePart: true }},
+      { path: 'espai/:id', component: () => import('pages/FormEspaiPage.vue'),meta: { showSomePart: true }},
+      { path: 'espaidefecte/:id', component: () => import('pages/FormEspaisDefectePage.vue'),meta: { showSomePart: true }},
     ]
   },
 

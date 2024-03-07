@@ -54,7 +54,8 @@ export default defineComponent({
         { path: '/reserves', text: 'Reserves'},
         { path: '/dominis', text: 'Propietats'},
         { path: '/configuracions', text: 'Configuracions'},
-        { path: '/serveis', text: 'Serveis'}
+        { path: '/serveis', text: 'Serveis'},
+        { path: '/espais', text: 'Espais'}
       ]
     }
   },

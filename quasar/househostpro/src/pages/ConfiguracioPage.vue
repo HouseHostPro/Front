@@ -3,7 +3,7 @@
     <q-btn
       :key="`btn_size_sq_md`"
       color="primary"
-      :label="`Nueva Configuracion`"
+      :label="`Nueva Configuracio`"
       @click="crearConfiguracio"
     />
   </div>
@@ -11,7 +11,7 @@
     <q-input v-model="filter" placeholder="Buscar Configuracio" dense outlined />
     <q-table
       flat bordered
-      title="Reservas"
+      title="Configuracions"
       :rows="filteredRows"
       :columns="columns"
       row-key="id"
@@ -127,5 +127,3 @@ export default {
 <style scoped>
 
 </style>
-<script setup>
-</script>
