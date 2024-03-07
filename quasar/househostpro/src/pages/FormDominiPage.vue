@@ -14,9 +14,6 @@
         <div class="col-4">
           <q-input v-model="domini.m2" type="number" label="m2"></q-input>
         </div>
-        <div class="col-4">
-          <q-input v-model="domini.descripcio" type="text" label="Descripcio"></q-input>
-        </div>
       </div>
       <div class="row q-col-gutter-x-md q-col-gutter-y-md">
         <div class="col-4">
@@ -84,7 +81,6 @@ export default {
         id: ref(undefined),
         nom: ref(''),
         localitzacio: ref(''),
-        descripcio: ref(''),
         m2: ref(''),
         user_id: ref(''),
         ciutat: ref(''),
@@ -212,7 +208,6 @@ export default {
           const domini = {
             id: this.domini.id,
             nom: this.domini.nom,
-            descripcio: this.domini.descripcio,
             localitzacio: this.domini.localitzacio,
             m2: this.domini.m2,
             usuari_id: this.domini.user_id,
