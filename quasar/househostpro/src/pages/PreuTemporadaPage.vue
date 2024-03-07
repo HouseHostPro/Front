@@ -47,6 +47,7 @@
 <script>
 
 import {PreuTemporadaService} from "src/service/PreuTemporadaService";
+import {date} from "quasar";
 
 export default {
   name: "PreuTemporadaPage",
@@ -58,8 +59,8 @@ export default {
         {name: 'id',align: 'center',label: 'ID',field: 'id',sortable: true},
         {name: 'preu',align: 'center',label: 'Preu',field: 'preu',sortable: true},
         {name: 'propietatPreuTemporada',align: 'center',label: 'Casa',field: 'propietatPreuTemporada',sortable: true},
-        {name: 'dataInici',align: 'center',label: 'Inicio',field: 'dataInici',sortable: true},
-        {name: 'dataFi',align: 'center',label: 'Fi',field: 'dataFi',sortable: true},
+        {name: 'dataInici',align: 'center',label: 'Inicio',field: row => date.formatDate(row.dataInici,'DD-MM-YYYY'),sortable: true},
+        {name: 'dataFi',align: 'center',label: 'Fi',field: row => date.formatDate(row.dataFi,'DD-MM-YYYY'),sortable: true},
         {name: 'Accio',align: 'center',label: 'Accio',field: 'Accio',sortable: true},
       ],
       filter: ''

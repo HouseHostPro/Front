@@ -53,6 +53,7 @@
 
 <script>
 import {ReservaService} from "src/service/ReservaService";
+import {date} from "quasar";
 
 export default {
   name: "ReservesPage",
@@ -67,8 +68,8 @@ export default {
         {name: 'persones',align: 'center',label: 'Persones',field: 'persones',sortable: true},
         {name: 'userReserva',align: 'center',label: 'Cliente',field: 'userReserva',sortable: true},
         {name: 'propietat',align: 'center',label: 'Casa',field: 'propietat',sortable: true},
-        {name: 'data_inici',align: 'center',label: 'Inicio',field: 'data_inici',sortable: true},
-        {name: 'data_fi',align: 'center',label: 'Fi',field: 'data_fi',sortable: true},
+        {name: 'data_inici',align: 'center',label: 'Inicio',field: row => date.formatDate(row.data_inici,'DD-MM-YYYY'),sortable: true},
+        {name: 'data_fi',align: 'center',label: 'Fi',field: row => date.formatDate(row.data_fi,'DD-MM-YYYY'),sortable: true},
         {name: 'Accio',align: 'center',label: 'Accio',field: 'Accio',sortable: true},
       ],
       filter: ''
