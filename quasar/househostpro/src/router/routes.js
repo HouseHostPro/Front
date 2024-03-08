@@ -4,7 +4,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/loginPage.vue'),meta: { showSomePart: true } },
+      { path: '', component: () => import('pages/loginPage.vue'),meta: { showSomePart: false } },
       { path: 'users', component: () => import('pages/UsersPage.vue'),meta: { showSomePart: true } },
       { path: 'user/:id', component: () => import('pages/FormUserPage.vue'),meta: { showSomePart: true } },
       { path: 'user', component: () => import('pages/FormUserPage.vue'),meta: { showSomePart: true } },
