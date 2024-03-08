@@ -33,6 +33,15 @@
               <q-item-label class="text-center">{{ link.text }}</q-item-label>
             </q-item-section>
           </q-item>
+          <q-btn
+            flat
+            dense
+            round
+            icon="exit_to_app"
+            aria-label="Logout"
+            @click="logout"
+            label="Cerrar Sesion"
+          />
         </q-list>
       </q-drawer>
       <router-view />
@@ -42,6 +51,7 @@
 
 <script>
 import {defineComponent} from "vue";
+import {UserService} from "src/service/UserService";
 
 export default defineComponent({
   name: 'MainLayout',
@@ -65,6 +75,14 @@ export default defineComponent({
     },
     toggleLeftDrawer () {
       this.drawerModel = !this.drawerModel
+    },
+    logout() {
+
+      localStorage.removeItem('token');
+
+      this.$router.push('/login');
+
+      this.$store.commit('clearUserData');
     }
   }
 })
