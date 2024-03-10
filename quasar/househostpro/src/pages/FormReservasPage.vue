@@ -46,6 +46,7 @@ import {ref} from "vue";
 import {UserService} from "src/service/UserService";
 import {ReservaService} from "src/service/ReservaService";
 import {PropietatService} from "src/service/PropietatService";
+import {TraduccionService} from "src/service/TraduccionService";
 
 export default {
   name: "FormReservasPage",
@@ -79,11 +80,14 @@ export default {
           this.reserva = reservaData;
           this.reserva.id= reservaData.id;
           this.reserva.persones = reservaData.persones;
-          this.reserva.userReserva = reservaData.userReserva.id;
+          this.reserva.usuari_id = reservaData.userReserva.id;
+          this.email = reservaData.userReserva.email;
           this.reserva.estat = reservaData.estat;
           this.reserva.data_inici = reservaData.data_inici;
           this.reserva.data_fi = reservaData.data_fi;
           this.reserva.propietat_id = reservaData.propietat.id;
+          const traduccionData = await TraduccionService.findTraduccionByCode(reservaData.propietat.nom);
+          this.nomPropietat = traduccionData.value;
         }
       } catch (error) {
         console.error('Error al obtener datos de la reserva:', error);
@@ -91,10 +95,7 @@ export default {
     },
     async getUser(){
       try {
-        console.log(this.email)
         this.user = await UserService.findUserByEmail(this.email);
-        console.log(this.user);
-        console.log(this.user.id);
         this.reserva.usuari_id = this.user.id;
       }catch (error){
         console.log("Error de obtener user: ",error)
@@ -102,8 +103,8 @@ export default {
     },
     async getPropietat(){
       try {
-        this.propietat = await PropietatService.findPropietatByNom(this.nomPropietat);
-        console.log(this.propietat.id);
+        const propietatNom = await TraduccionService.findTraduccionByValue(this.nomPropietat);
+        this.propietat = await PropietatService.findPropietatByNom(propietatNom.code);
         this.reserva.propietat_id = this.propietat.id;
       }catch (error){
         console.log("Error de obtener propiedad: ",error);

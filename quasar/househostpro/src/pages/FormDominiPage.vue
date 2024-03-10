@@ -140,7 +140,8 @@ export default {
         const dominiId = this.$route.params.id;
         if (dominiId) {
           const dominiData = await PropietatService.findPropietatByid(dominiId);
-          const traduccionData = await TraduccionService.findTraduccionByCode(dominiData.nom);
+          const traduccionNomData = await TraduccionService.findTraduccionByCode(dominiData.nom);
+          const traduccionDescripcioData = await TraduccionService.findTraduccionByCode(dominiData.descripcio);
           const configData = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.dominiName.clau,parseInt(dominiData.id));
           const preuBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.preuBase.clau,parseInt(dominiData.id));
           const fumarBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.fumar.clau,parseInt(dominiData.id));
@@ -150,7 +151,8 @@ export default {
           const salidaBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.horaSalida.clau,parseInt(dominiData.id));
           const natejaBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.PrecioLimpieza.clau,parseInt(dominiData.id));
           this.domini = dominiData;
-          this.domini.nom = traduccionData.value;
+          this.domini.nom = traduccionNomData.value;
+          this.domini.descripcio = traduccionDescripcioData.value;
           this.dominiName = configData;
           this.preuBase = preuBase;
           this.fumar = fumarBase;

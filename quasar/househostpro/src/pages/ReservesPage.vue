@@ -54,6 +54,7 @@
 <script>
 import {ReservaService} from "src/service/ReservaService";
 import {date} from "quasar";
+import {TraduccionService} from "src/service/TraduccionService";
 
 export default {
   name: "ReservesPage",
@@ -84,16 +85,27 @@ export default {
       try {
         const dominiId = this.$route.params.id_propietat;
         const userId = this.$route.params.id_user;
-        console.log(dominiId,userId);
         if (dominiId != null){
           const respuesta = await ReservaService.findReservesByPropietatId(dominiId);
           this.rows =await respuesta;
+          await Promise.all(respuesta.map(async (row)=>{
+            const traduccion = await TraduccionService.findTraduccionByCode(row.propietat.nom);
+            row.propietat.nom = traduccion.value
+          }));
         }else if (userId != null){
           const respuesta = await ReservaService.findReservesByUserId(userId);
           this.rows =await respuesta;
+          await Promise.all(respuesta.map(async (row)=>{
+            const traduccion = await TraduccionService.findTraduccionByCode(row.propietat.nom);
+            row.propietat.nom = traduccion.value
+          }));
         }else {
           const respuesta = await ReservaService.findAllReserves();
           this.rows =await respuesta;
+          await Promise.all(respuesta.map(async (row)=>{
+            const traduccion = await TraduccionService.findTraduccionByCode(row.propietat.nom);
+            row.propietat.nom = traduccion.value
+          }));
         }
         console.log(this.rows);
       }catch (error){

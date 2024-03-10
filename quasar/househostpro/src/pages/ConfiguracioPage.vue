@@ -47,6 +47,7 @@
 <script>
 import {ConfiguracionsService} from "src/service/ConfiguracionsService";
 import {ReservaService} from "src/service/ReservaService";
+import {TraduccionService} from "src/service/TraduccionService";
 
 export default {
   name: "ConfiguracioPage",
@@ -72,13 +73,20 @@ export default {
     async datosConfiguracions() {
       try {
         const dominiId = this.$route.params.id_propietat;
-        console.log(dominiId);
         if (dominiId != null){
           const respuesta = await ConfiguracionsService.findConfiguracionsByPropietat(dominiId);
           this.rows = await respuesta;
+          await Promise.all(respuesta.map(async (row)=>{
+            const traduccion = await TraduccionService.findTraduccionByCode(row.propietatConfiguracio.nom);
+            row.propietatConfiguracio.nom = traduccion.value
+          }));
         }else{
-          const repuesta = await ConfiguracionsService.findAllConfiguracions();
-          this.rows = await repuesta;
+          const respuesta = await ConfiguracionsService.findAllConfiguracions();
+          this.rows = await respuesta;
+          await Promise.all(respuesta.map(async (row)=>{
+            const traduccion = await TraduccionService.findTraduccionByCode(row.propietatConfiguracio.nom);
+            row.propietatConfiguracio.nom = traduccion.value
+          }));
         }
 
         console.log(this.rows);
