@@ -77,7 +77,7 @@ module.exports = configure(function (ctx) {
         API: 'http://localhost:8080'
         }
         : {
-        API: 'http://api.househostpro.net'
+        API: 'http://api.househostpro.net/api'
         },
 
       vitePlugins: [
