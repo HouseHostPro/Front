@@ -29,6 +29,9 @@
       <div class="col-6">
         <q-input v-model="user.telefon" type="tel" label="telefon"></q-input>
       </div>
+      <div class="col-6">
+        <q-select v-model="user.roles_user" :options="opcionesRols" label="Rol" value-field="value"></q-select>
+      </div>
     </div>
     <div class="row q-col-gutter-x-md q-col-gutter-y-md">
       <div class="col-6">
@@ -76,6 +79,7 @@ export default defineComponent({
   async created() {
     await this.listCiutats();
     await this.getUserData();
+    await this.listRols();
   },
   methods:{
     async getUserData() {
@@ -103,6 +107,13 @@ export default defineComponent({
         console.error('Error al obtener datos:',error)
       }
     },
+    async listRols(){
+      try {
+        this.roles = await UserService.findAllRols()
+      }catch (error){
+        console.error('Error al obtener los roles:',error)
+      }
+    },
     async crearUsuario(){
       try {
         const user = {
@@ -114,7 +125,8 @@ export default defineComponent({
           contrasenya: this.contrasenya,
           telefon: this.user.telefon,
           direccio: this.user.direccio,
-          ciutat_id: this.user.ciutat.value
+          ciutat_id: this.user.ciutat.value,
+          rol_user: this.user.roles_user.value
         }
         console.log(user);
         await UserService.create(user)
@@ -135,6 +147,9 @@ export default defineComponent({
   computed:{
     opcionesCiutats(){
       return this.ciutats.map(ciutat => ({label: ciutat.nom, value: ciutat.id}));
+    },
+    opcionesRols(){
+      return this.roles.map(rol => ({label: rol.nom,value: rol.nom}));
     }
   }
 })

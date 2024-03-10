@@ -33,6 +33,10 @@ export class UserService{
     return await axios.get(process.env.API + "/usuari/list");
   }
 
+  static async findAllRols(){
+    return await axios.get(process.env.API + "/usuari/listrols");
+  }
+
   static async findUserById(id){
     return await axios.get(process.env.API + `/usuari/usuaribyid/${id}`)
   }
