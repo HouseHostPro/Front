@@ -12,6 +12,9 @@
           <q-input v-model="domini.nom" label="Nom"></q-input>
         </div>
         <div class="col-4">
+          <q-input v-model="domini.descripcio" type="text" label="Descripcio"></q-input>
+        </div>
+        <div class="col-4">
           <q-input v-model="domini.m2" type="number" label="m2"></q-input>
         </div>
       </div>
@@ -72,6 +75,7 @@ import {ref} from "vue";
 import {UserService} from "src/service/UserService";
 import {PropietatService} from "src/service/PropietatService";
 import {ConfiguracionsService} from "src/service/ConfiguracionsService";
+import {TraduccionService} from "src/service/TraduccionService";
 
 export default {
   name: "FormDominiPage",
@@ -80,6 +84,7 @@ export default {
       domini:{
         id: ref(undefined),
         nom: ref(''),
+        descripcio: ref(''),
         localitzacio: ref(''),
         m2: ref(''),
         user_id: ref(''),
@@ -133,9 +138,9 @@ export default {
     async getDominiData() {
       try {
         const dominiId = this.$route.params.id;
-        console.log(dominiId);
         if (dominiId) {
           const dominiData = await PropietatService.findPropietatByid(dominiId);
+          const traduccionData = await TraduccionService.findTraduccionByCode(dominiData.nom);
           const configData = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.dominiName.clau,parseInt(dominiData.id));
           const preuBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.preuBase.clau,parseInt(dominiData.id));
           const fumarBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.fumar.clau,parseInt(dominiData.id));
@@ -145,6 +150,7 @@ export default {
           const salidaBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.horaSalida.clau,parseInt(dominiData.id));
           const natejaBase = await ConfiguracionsService.findConfiguracioByClauAndPropietat(this.PrecioLimpieza.clau,parseInt(dominiData.id));
           this.domini = dominiData;
+          this.domini.nom = traduccionData.value;
           this.dominiName = configData;
           this.preuBase = preuBase;
           this.fumar = fumarBase;
@@ -153,7 +159,6 @@ export default {
           this.horaEntrada = entradaBase;
           this.horaSalida = salidaBase;
           this.PrecioLimpieza = natejaBase;
-          console.log("dominiData",dominiData);
           this.domini.id= dominiData.id;
           this.domini.ciutat.label = dominiData.ciutat.nom;
           this.domini.ciutat.value = dominiData.ciutat.id;
@@ -169,7 +174,6 @@ export default {
           this.horaEntrada.valor = entradaBase.valor;
           this.horaSalida.valor = salidaBase.valor;
           this.PrecioLimpieza.valor = natejaBase.valor;
-          console.log(this.preuBase);
         }
       } catch (error) {
         console.error('Error al obtener datos del domini:', error);
@@ -208,6 +212,7 @@ export default {
           const domini = {
             id: this.domini.id,
             nom: this.domini.nom,
+            descripcio: this.domini.descripcio,
             localitzacio: this.domini.localitzacio,
             m2: this.domini.m2,
             usuari_id: this.domini.user_id,
@@ -230,8 +235,6 @@ export default {
             limpiezaClau: this.PrecioLimpieza.clau,
             limpiezaValor: this.PrecioLimpieza.valor
           }
-          console.log(domini.usuari_id);
-          console.log(domini);
           await PropietatService.create(domini);
           console.log("Domini creado");
           await this.$router.push({path: '/dominis'});

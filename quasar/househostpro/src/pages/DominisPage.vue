@@ -100,6 +100,7 @@
 
 <script>
 import {PropietatService} from "src/service/PropietatService";
+import {TraduccionService} from "src/service/TraduccionService";
 
 export default {
   name: "DominisPage",
@@ -132,6 +133,10 @@ export default {
       try {
         const respuesta = await PropietatService.findAllPropietats();
         this.rows = await respuesta;
+        await Promise.all(respuesta.map(async (row)=>{
+          const traduccion = await TraduccionService.findTraduccionByCode(row.nom);
+          row.nom = traduccion.value
+        }));
         console.log(this.rows);
       } catch (error) {
         console.error('Error al obtener las propietats:', error);
