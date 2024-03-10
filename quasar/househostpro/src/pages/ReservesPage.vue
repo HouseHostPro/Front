@@ -87,27 +87,29 @@ export default {
         const userId = this.$route.params.id_user;
         if (dominiId != null){
           const respuesta = await ReservaService.findReservesByPropietatId(dominiId);
-          this.rows =await respuesta;
-          await Promise.all(respuesta.map(async (row)=>{
+          for (const row of respuesta) {
             const traduccion = await TraduccionService.findTraduccionByCode(row.propietat.nom);
-            row.propietat.nom = traduccion.value
-          }));
+            row.propietat.nom = traduccion.value;
+          }
+
+          this.rows = respuesta;
         }else if (userId != null){
           const respuesta = await ReservaService.findReservesByUserId(userId);
-          this.rows =await respuesta;
-          await Promise.all(respuesta.map(async (row)=>{
+          for (const row of respuesta) {
             const traduccion = await TraduccionService.findTraduccionByCode(row.propietat.nom);
-            row.propietat.nom = traduccion.value
-          }));
+            row.propietat.nom = traduccion.value;
+          }
+
+          this.rows = respuesta;
         }else {
           const respuesta = await ReservaService.findAllReserves();
-          this.rows =await respuesta;
-          await Promise.all(respuesta.map(async (row)=>{
+          for (const row of respuesta) {
             const traduccion = await TraduccionService.findTraduccionByCode(row.propietat.nom);
-            row.propietat.nom = traduccion.value
-          }));
+            row.propietat.nom = traduccion.value;
+          }
+
+          this.rows = respuesta;
         }
-        console.log(this.rows);
       }catch (error){
         console.error('Error al obtener las reserves:',error);
       }

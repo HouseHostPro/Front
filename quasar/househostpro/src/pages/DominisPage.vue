@@ -132,12 +132,12 @@ export default {
     async datosPropietats() {
       try {
         const respuesta = await PropietatService.findAllPropietats();
-        this.rows = await respuesta;
-        await Promise.all(respuesta.map(async (row)=>{
+        for (const row of respuesta) {
           const traduccion = await TraduccionService.findTraduccionByCode(row.nom);
-          row.nom = traduccion.value
-        }));
-        console.log(this.rows);
+          row.nom = traduccion.value;
+        }
+
+        this.rows = respuesta;
       } catch (error) {
         console.error('Error al obtener las propietats:', error);
       }
@@ -184,8 +184,8 @@ export default {
       return this.rows.filter(row => {
         const searchTerm = this.filter.toLowerCase();
         return (
-          row.nom.toLowerCase().includes(searchTerm) ||
-          row.userPropietat.email.toLowerCase().includes(searchTerm)
+          (row.nom && row.nom.toLowerCase().includes(searchTerm)) ||
+          (row.userPropietat && row.userPropietat.email && row.userPropietat.email.toLowerCase().includes(searchTerm))
         );
       });
     }

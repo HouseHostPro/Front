@@ -75,18 +75,21 @@ export default {
         const dominiId = this.$route.params.id_propietat;
         if (dominiId != null){
           const respuesta = await ConfiguracionsService.findConfiguracionsByPropietat(dominiId);
-          this.rows = await respuesta;
-          await Promise.all(respuesta.map(async (row)=>{
+
+          for (const row of respuesta) {
             const traduccion = await TraduccionService.findTraduccionByCode(row.propietatConfiguracio.nom);
-            row.propietatConfiguracio.nom = traduccion.value
-          }));
+            row.propietatConfiguracio.nom = traduccion.value;
+          }
+
+          this.rows = respuesta;
         }else{
           const respuesta = await ConfiguracionsService.findAllConfiguracions();
-          this.rows = await respuesta;
-          await Promise.all(respuesta.map(async (row)=>{
+          for (const row of respuesta) {
             const traduccion = await TraduccionService.findTraduccionByCode(row.propietatConfiguracio.nom);
-            row.propietatConfiguracio.nom = traduccion.value
-          }));
+            row.propietatConfiguracio.nom = traduccion.value;
+          }
+
+          this.rows = respuesta;
         }
 
         console.log(this.rows);
