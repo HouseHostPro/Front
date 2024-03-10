@@ -12,7 +12,7 @@
 const { configure } = require('quasar/wrappers');
 const path = require('path');
 
-module.exports = configure(function (/* ctx */) {
+module.exports = configure(function (ctx) {
   return {
 
 
@@ -71,6 +71,14 @@ module.exports = configure(function (/* ctx */) {
 
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
+
+      env: ctx.dev
+      ? {
+        API: 'http://localhost:8080'
+        }
+        : {
+        API: 'http://api.househostpor.net'
+        },
 
       vitePlugins: [
         ['@intlify/vite-plugin-vue-i18n', {

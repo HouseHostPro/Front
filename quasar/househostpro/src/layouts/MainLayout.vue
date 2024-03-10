@@ -81,8 +81,6 @@ export default defineComponent({
       localStorage.removeItem('token');
 
       this.$router.push('/login');
-
-      this.$store.commit('clearUserData');
     }
   }
 })

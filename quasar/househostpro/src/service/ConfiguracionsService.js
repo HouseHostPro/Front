@@ -3,24 +3,24 @@ import axios from "axios";
 export class ConfiguracionsService{
 
   static async findAllConfiguracions(){
-    return await axios.get("http://localhost:8080/configuracio/listconfiguracions");
+    return await axios.get(process.env.API + "/configuracio/listconfiguracions");
   }
 
   static async findConfiguracioById(id){
-    return await axios.get(`http://localhost:8080/configuracio/config/${id}`)
+    return await axios.get(process.env.API + `/configuracio/config/${id}`)
   }
 
   static async findConfiguracionsByPropietat(id_propietat){
-    return await axios.get(`http://localhost:8080/configuracio/configpropietat/${id_propietat}`)
+    return await axios.get(process.env.API + `/configuracio/configpropietat/${id_propietat}`)
   }
 
   static async findConfiguracioByClauAndPropietat(clau,id){
-    return await axios.get(`http://localhost:8080/configuracio/configclaudomini/${clau}/${id}`)
+    return await axios.get(process.env.API + `/configuracio/configclaudomini/${clau}/${id}`)
   }
 
   static async create(config){
     try {
-      return await axios.post("http://localhost:8080/configuracio/createconfiguracio", config, {
+      return await axios.post(process.env.API + "/configuracio/createconfiguracio", config, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -33,7 +33,7 @@ export class ConfiguracionsService{
 
   static async delete(id){
     try {
-      return await axios.delete(`http://localhost:8080/configuracio/delete/${id}`);
+      return await axios.delete(process.env.API + `/configuracio/delete/${id}`);
     }catch (error){
       console.error("Error al eliminar la configuracio:", error);
       throw error;

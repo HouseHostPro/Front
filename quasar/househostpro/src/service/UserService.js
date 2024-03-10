@@ -4,7 +4,7 @@ export class UserService{
 
   static async login(user){
     try {
-      const response = await axios.post("http://localhost:8080/usuari/login",{
+      const response = await axios.post(process.env.API + "/usuari/login",{
         email: user.email,
         contrasenya: user.contrasenya
       })
@@ -16,7 +16,7 @@ export class UserService{
 
   static async create(user){
     try {
-      const repuesta = await axios.post("http://localhost:8080/usuari/create",user,{
+      const repuesta = await axios.post(process.env.API + "/usuari/create",user,{
         headers: {
           'Content-Type': 'application/json'
         }
@@ -30,24 +30,24 @@ export class UserService{
   }
 
   static async findAllUsers(){
-    return await axios.get("http://localhost:8080/usuari/list");
+    return await axios.get(process.env.API + "/usuari/list");
   }
 
   static async findUserById(id){
-    return await axios.get(`http://localhost:8080/usuari/usuaribyid/${id}`)
+    return await axios.get(process.env.API + `/usuari/usuaribyid/${id}`)
   }
 
   static async findUserByEmail(email){
-    return await axios.get(`http://localhost:8080/usuari/usuaribyemail/${email}`)
+    return await axios.get(process.env.API + `/usuari/usuaribyemail/${email}`)
   }
 
   static async findAllCiutats(){
-    return await axios.get("http://localhost:8080/ciutats");
+    return await axios.get(process.env.API + "/ciutats");
   }
 
   static async delete(id){
     try {
-      return await axios.delete(`http://localhost:8080/usuari/delete/${id}`);
+      return await axios.delete(process.env.API + `/usuari/delete/${id}`);
     }catch (error){
       console.error("Error al eliminar el usuario:", error);
       throw error;

@@ -90,7 +90,7 @@ export default {
     },
     async eliminarEspai(row) {
       try {
-        await EspaiService.delete(row.id);
+        await EspaiService.deleteEspai(row.id);
         const index = this.rows.findIndex(config => config.id === row.id);
         if (index !== -1) {
           this.rows.splice(index, 1);
