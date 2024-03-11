@@ -14,6 +14,7 @@ const routes = [
       { path: 'dominis/:id_user', component: () => import('pages/DominisPage.vue'),meta: { showSomePart: true }},
       { path: 'domini/:id', component: () => import('pages/FormDominiPage.vue'),meta: { showSomePart: true }},
       { path: 'domini', component: () => import('pages/FormDominiPage.vue'),meta: { showSomePart: true }},
+      { path: 'addespai/:id', component: () => import('pages/AddEspai.vue'),meta: { showSomePart: true }},
       { path: 'configuracions', component: () => import('pages/ConfiguracioPage.vue'),meta: { showSomePart: true }},
       { path: 'configuracions/:id_propietat', component: () => import('pages/ConfiguracioPage.vue'),meta: { showSomePart: true }},
       { path: 'configuracio', component: () => import('pages/FormConfiguracioPage.vue'),meta: { showSomePart: true }},

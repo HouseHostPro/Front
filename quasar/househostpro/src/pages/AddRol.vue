@@ -30,7 +30,7 @@ import {ref} from "vue";
 import {UserService} from "src/service/UserService";
 
 export default {
-  name: "FormRoles",
+  name: "AddRoles",
   data(){
     return{
       userRol:{

@@ -23,14 +23,26 @@ export class PropietatService{
 
   static async create(propietat){
     try {
-      const repuesta = await axios.post(process.env.API + "/propietat/createpropietat",propietat,{
+      return await axios.post(process.env.API + "/propietat/createpropietat", propietat, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      return repuesta;
     }catch (error){
       console.error("Error al crear domini:", error);
+      throw error;
+    }
+  }
+
+  static async addEspai(dominiEspai){
+    try {
+      return await axios.post(process.env.API + "/propietat/addespai", dominiEspai, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    }catch (error){
+      console.error("Error al agregar el espai:", error);
       throw error;
     }
   }

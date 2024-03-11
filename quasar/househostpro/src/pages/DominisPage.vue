@@ -70,6 +70,8 @@
           <div>
             <q-btn @click="espaiDomini(props.row)" icon="search" color="primary">
             </q-btn>
+            <q-btn @click="addEspai(props.row)" icon="add" color="primary">
+            </q-btn>
           </div>
         </q-td>
       </template>
@@ -174,6 +176,9 @@ export default {
     },
     espaiDomini(row) {
       this.$router.push({path: `espais/${row.id}`})
+    },
+    addEspai(row) {
+      this.$router.push({path: `addespai/${row.id}`})
     },
     getSelectedString() {
       return this.selected?.length === 0 ? '' : `${this.selected.length} record${this.selected.length > 1 ? 's' : ''} selected of ${this.rows.length}`
