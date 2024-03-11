@@ -29,6 +29,19 @@ export class UserService{
 
   }
 
+  static async addRol(userRol){
+    try {
+      return await axios.post(process.env.API + "/usuari/addroluser", userRol, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+    }catch (error){
+      console.error("Error al agregar el rol:", error);
+      throw error;
+    }
+  }
+
   static async findAllUsers(){
     return await axios.get(process.env.API + "/usuari/list");
   }

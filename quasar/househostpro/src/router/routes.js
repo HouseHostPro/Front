@@ -8,6 +8,7 @@ const routes = [
       { path: 'users', component: () => import('pages/UsersPage.vue'),meta: { showSomePart: true } },
       { path: 'user/:id', component: () => import('pages/FormUserPage.vue'),meta: { showSomePart: true } },
       { path: 'user', component: () => import('pages/FormUserPage.vue'),meta: { showSomePart: true } },
+      { path: 'addrol/:iduser', component: () => import('pages/AddRol.vue'),meta: { showSomePart: true } },
       { path: 'login', component: () => import('pages/LoginPage.vue'), meta: { showSomePart: false } },
       { path: 'dominis', component: () => import('pages/DominisPage.vue'),meta: { showSomePart: true }},
       { path: 'dominis/:id_user', component: () => import('pages/DominisPage.vue'),meta: { showSomePart: true }},

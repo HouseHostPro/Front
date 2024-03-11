@@ -25,6 +25,9 @@
           <div v-if="props.row.roles && props.row.roles.length">
             {{ props.row.roles.map(role => role.nom).join(', ') }}
           </div>
+          <div>
+            <q-btn @click="addRol(props.row)" icon="add" size="xs" color="primary"></q-btn>
+          </div>
         </q-td>
       </template>
       <template v-slot:body-cell-Accio="props">
@@ -103,6 +106,9 @@ export default defineComponent({
     },
     async editarUsuario(row) {
       this.$router.push({path:`user/${row.id}`})
+    },
+    async addRol(row){
+      this.$router.push({path: `addrol/${row.id}`})
     },
     crearUsuario(){
       this.$router.push({path:'user'})
