@@ -24,13 +24,21 @@
         <q-input v-model="user.email" type="email" label="Email"></q-input>
       </div>
       <div class="col-6">
-        <q-input v-if="isNewUser" v-model="contrasenya" type="password" label="Contrasenya"></q-input>
+        <q-input v-if="isNewUser" v-model="contrasenya" :type="isPwd ? 'password' : 'text'" label="Contrasenya">
+          <template v-slot:append>
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
+          </template>
+        </q-input>
       </div>
       <div class="col-6">
         <q-input v-model="user.telefon" type="tel" label="telefon"></q-input>
       </div>
       <div class="col-6">
-        <q-select v-model="user.roles_user" :options="opcionesRols" label="Rol" value-field="value"></q-select>
+        <q-select v-model="user.roles_user" :options="opcionesRols" label="Rol" value-field="value" :readonly="user.id !== undefined"></q-select>
       </div>
     </div>
     <div class="row q-col-gutter-x-md q-col-gutter-y-md">
@@ -73,7 +81,8 @@ export default defineComponent({
       ciutats: [],
       roles: [],
       contrasenya: ref(''),
-      isNewUser: true
+      isNewUser: true,
+      isPwd: true
     };
   },
   async created() {
@@ -88,13 +97,12 @@ export default defineComponent({
         console.log(userId);
         if (userId) {
           const userData = await UserService.findUserById(userId);
+          this.isNewUser = false;
           this.user = userData;
           this.user.id= userData.id;
           this.user.ciutat.label = userData.ciutat.nom;
           this.user.ciutat.value = userData.ciutat.id;
           this.user.roles_user = userData.roles[0].nom;
-          this.isNewUser = false;
-          console.log(userData.roles[0]);
         }
       } catch (error) {
         console.error('Error al obtener datos del usuario:', error);
