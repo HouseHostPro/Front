@@ -32,16 +32,21 @@
             <q-item-section>
               <q-item-label class="text-center">{{ link.text }}</q-item-label>
             </q-item-section>
+            <q-item-section side top>
+              <q-icon :name="link.icon" />
+            </q-item-section>
           </q-item>
-          <q-btn
-            flat
-            dense
-            round
-            icon="exit_to_app"
-            aria-label="Logout"
-            @click="logout"
-            label="Cerrar Sesion"
-          />
+          <div class="text-center">
+            <q-btn
+              flat
+              dense
+              round
+              aria-label="Logout"
+              @click="logout"
+              label="Cerrar Sesion"
+              class="q-pr-sm"
+            ><q-icon name="exit_to_app" class="q-ml-sm" /></q-btn>
+          </div>
         </q-list>
       </q-drawer>
       <router-view />
@@ -60,12 +65,12 @@ export default defineComponent({
       drawerModel: true,
       drawerWidth: 200,
       links: [
-        { path: '/users', text: 'Usuaris' },
-        { path: '/reserves', text: 'Reserves'},
-        { path: '/dominis', text: 'Propietats'},
-        { path: '/configuracions', text: 'Configuracions'},
-        { path: '/serveis', text: 'Serveis'},
-        { path: '/espais', text: 'Espais'}
+        { path: '/users', text: 'Usuaris',icon: 'people' },
+        { path: '/reserves', text: 'Reserves',icon: 'event'},
+        { path: '/dominis', text: 'Propietats',icon: 'home'},
+        { path: '/configuracions', text: 'Configuracions',icon: 'settings'},
+        { path: '/serveis', text: 'Serveis',icon: 'build'},
+        { path: '/espais', text: 'Espais',icon: 'place'}
       ]
     }
   },
