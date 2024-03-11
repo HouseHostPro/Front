@@ -11,9 +11,6 @@
         <div class="col-6">
           <q-input v-model="servei.nom" type="text" label="Nom"></q-input>
         </div>
-        <div class="col-6">
-          <q-input v-model="servei.descripcio" type="text" label="Descripcio"></q-input>
-        </div>
       </div>
       <div class="row q-col-gutter-x-md q-col-gutter-y-md">
         <div class="col-10"></div>
@@ -35,8 +32,7 @@ export default {
     return{
       servei:{
         id: ref(undefined),
-        nom: ref(''),
-        descripcio: ref('')
+        nom: ref('')
       }
     }
   },

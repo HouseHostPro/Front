@@ -51,7 +51,6 @@ export default {
       columns: [
         {name: 'id',align: 'center',label: 'ID',field: 'id',sortable: true},
         {name: 'nom',align: 'center',label: 'Nom',field: 'nom',sortable: true},
-        {name: 'descripcio',align: 'center',label: 'Descripcio',field: 'descripcio',sortable: true},
         {name: 'Accio',align: 'center',label: 'Accio',field: 'Accio',sortable: true},
       ],
       filter: ''
