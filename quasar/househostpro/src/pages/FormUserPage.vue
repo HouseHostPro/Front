@@ -92,9 +92,9 @@ export default defineComponent({
           this.user.id= userData.id;
           this.user.ciutat.label = userData.ciutat.nom;
           this.user.ciutat.value = userData.ciutat.id;
-          this.user.roles_user = userData.roles;
+          this.user.roles_user = userData.roles[0].nom;
           this.isNewUser = false;
-          console.log("id ciudad "+this.user.ciutat.value);
+          console.log(userData.roles[0]);
         }
       } catch (error) {
         console.error('Error al obtener datos del usuario:', error);
